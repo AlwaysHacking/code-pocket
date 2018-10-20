@@ -1,0 +1,41 @@
+.received-event{
+  font-size: 15px;
+  width:100%;
+  border-top: 1px solid #DEDEDE;
+  background-color:rgba(200,200,200,0.25);
+  padding:20px 0;
+
+  .info-item{
+    display: flex;
+    align-items: center;
+    
+    .info-avatar{
+      min-height: 45px;
+      min-width: 45px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      margin:0 20px;
+    }
+
+    .info-title{
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+
+      .info-action{
+        margin: 0 5px;
+      }
+    }
+  }
+
+  .repo-item{
+    margin-left: 80px;
+    margin-right: 20px;
+  }
+}
+
+.highlight{
+  color:rgb(5, 121, 253);
+  font-weight: bold;
+}

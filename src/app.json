@@ -1,13 +1,50 @@
 {
   "pages": [
-    "pages/index/main",
+    "pages/notification/main",
+    "pages/profile/main",
+    "pages/trending/main",
+    "pages/search/main",
     "pages/logs/main",
-    "pages/counter/main"
+    "pages/login/main",
+    "pages/counter/main",
+    "pages/repositories/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "MiniGithub",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "backgroundColor": "#fafafa",
+    "borderStyle": "white",
+    "selectedColor": "#b4282d",
+    "color": "#666",
+    "list": [
+      {
+        "pagePath": "pages/notification/main",
+        "iconPath": "static/images/ic_menu_bell.png",
+        "selectedIconPath":"static/images/ic_menu_bell_on.png",
+        "text": "Notification"
+      },
+      {
+        "pagePath": "pages/trending/main",
+        "iconPath": "static/images/ic_menu_trending.png",
+        "selectedIconPath":"static/images/ic_menu_trending_on.png",
+        "text": "Trending"
+      },
+      {
+        "pagePath": "pages/profile/main",
+        "iconPath": "static/images/ic_menu_profile.png",
+        "selectedIconPath":"static/images/ic_menu_profile_on.png",
+        "text": "Profile"
+      },
+      {
+        "pagePath": "pages/search/main",
+        "iconPath": "static/images/ic_menu_search.png",
+        "selectedIconPath":"static/images/ic_menu_search_on.png",
+        "text": "Search"
+      }
+    ]
   }
 }

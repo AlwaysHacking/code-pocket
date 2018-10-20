@@ -2,16 +2,27 @@
 export default {
   created () {
     // 调用API从本地缓存中获取数据
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
-    console.log('app created and cache logs by setStorageSync')
+    // const logs = wx.getStorageSync('logs') || []
+    // logs.unshift(Date.now())
+    // wx.setStorageSync('logs', logs)
+    // console.log('app created and cache logs by setStorageSync')
   }
+  // onLaunch () {
+  //   // 从缓存中获取token，判断是否显示登录页
+  //   const token = wx.getStorageSync('authToken') || ''
+  //   if (token) {
+  //     console.log('已认证，跳转到首页')
+  //     wx.switchTab({
+  //       url: '/pages/profile/main'
+  //     })
+  //   }
+  // }
 }
 </script>
 
 <style>
+@import url("./octicons/build.css");
+
 .container {
   height: 100%;
   display: flex;
