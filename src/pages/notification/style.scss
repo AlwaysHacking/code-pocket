@@ -10,12 +10,12 @@
     align-items: center;
     
     .info-avatar{
-      min-height: 45px;
-      min-width: 45px;
-      width: 45px;
-      height: 45px;
+      min-height: 35px;
+      min-width: 35px;
+      width: 35px;
+      height: 35px;
       border-radius: 50%;
-      margin:0 20px;
+      margin:0 15px;
     }
 
     .info-title{
@@ -30,7 +30,7 @@
   }
 
   .repo-item{
-    margin-left: 80px;
+    margin-left: 70px;
     margin-right: 20px;
   }
 }

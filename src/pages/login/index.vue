@@ -53,7 +53,7 @@ export default {
 
       // ajax请求url,header,data,method
       // @TODO 填写client_id
-      var url = '/authorizations/clients/'+'{#client_id}'
+      var url = '/authorizations/clients/' + '{#client_id}'
       var header = {
         Authorization: 'Basic ' + str,
         'Content-Type': 'application/json',

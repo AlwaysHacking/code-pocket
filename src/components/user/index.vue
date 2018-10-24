@@ -8,15 +8,15 @@
         <div class="login">{{user.login}}</div>
         <ul class="userDetail">
           <li>
-             <img src="../../octicons/svg/location.svg" class="svg">
+             <img src="../../octicons/svg/location.svg" class="userIcon">
              <span>{{user.location||''}}</span>
           </li>
           <li>
-             <img src="../../octicons/svg/mail.svg" class="svg">
+             <img src="../../octicons/svg/mail.svg" class="userIcon">
              <span>{{user.email||''}}</span>
           </li>
           <li>
-             <img src="../../octicons/svg/link.svg" class="svg">
+             <img src="../../octicons/svg/link.svg" class="userIcon">
              <span class="html_url">{{user.html_url||''}}</span>
           </li>
         </ul>
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="blank"></div>
-    <div class="codeInfo">
+    <div class="codeToolbar">
       <div class="block borderTop borderBottom" @click="toRepo">
         <img src="../../octicons/svg/repo.svg" class="icon">
         Repositories

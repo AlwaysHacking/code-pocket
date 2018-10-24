@@ -1,5 +1,5 @@
 <template>
-  <div class="repo">
+  <div class="repo" @click="toRepo(repoInfo.full_name)">
     <img class="repo-avatar" lazy-load @click="toProfile(repoInfo.login)" :src="repoInfo.avatar_url" alt="avatar"/>
     <div class="repo-title">
       <div class="title-top">
@@ -62,6 +62,11 @@ export default {
     toProfile (username) {
       wx.navigateTo({
         url: '/pages/profile/main?userName=' + username
+      })
+    },
+    toRepo (reponame) {
+      wx.navigateTo({
+        url: '/pages/repo/main?repoFullName=' + reponame
       })
     }
   }

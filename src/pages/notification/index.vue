@@ -6,7 +6,7 @@
         <div class="info-title">
           <p class="highlight" @click="toProfile(item.actor.login)">{{item.actor.login}}</p>
           <p class="info-action">{{item.payload.action||'created'}}</p>
-          <p class="highlight">{{item.repo.name}}</p>
+          <p class="highlight" @click="toRepo(item.repo.name)">{{item.repo.name}}</p>
         </div>
       </div>
       <div class="repo-item">
@@ -59,6 +59,11 @@ export default {
     toProfile (username) {
       wx.navigateTo({
         url: '/pages/profile/main?userName=' + username
+      })
+    },
+    toRepo (reponame) {
+      wx.navigateTo({
+        url: '/pages/repo/main?repoFullName=' + reponame
       })
     }
   }

@@ -1,0 +1,122 @@
+.repo{
+  font-size: 15px;
+  width:100%;
+  background-color:rgba(200,200,200,0.25);
+
+  .repoInfo{
+    background-color: white;
+    border-bottom: 1px solid #DEDEDE;
+    padding:10px 0;
+
+    .baseInfo{
+      margin-left: 30px;
+
+      .base_user{
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+
+        .avatarImg{
+          width: 30px;
+          height: 30px;
+          overflow: hidden;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+      }
+      
+      .base_name{
+        font-weight: bold;
+        font-size: 150%;
+        padding: 5px 0;
+      }
+      
+      .base_description{
+        color: rgb(167, 167, 167);
+        padding: 5px 0;
+      }
+
+      .base_star{
+        display: flex;
+        padding: 10px 0;
+        color:#DCDCDC;
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 30px;
+
+        .starBtn{
+          background-color:rgb(27, 27, 240);
+          margin:0 10px;
+          color:white;
+          line-height: 30px;
+        }
+      }
+    }
+
+    .dataInfo{
+      margin:15px;
+
+      .buttonBar{
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        justify-content: space-between;
+        margin:10px 0;
+      
+        .iconMini{
+          height: 15px;
+          width: 15px;
+        }
+
+        .textMini{
+          color:rgb(167, 167, 167);
+          margin:0 5px;
+        }
+      }
+
+      .contributorList{
+        width: 100%;
+
+        .listText{
+          font-size: 12px;
+          font-weight: bold;
+          margin:20px 0;
+        }
+      }
+    }
+  }
+  .repoToolbar{
+    margin: 10px 0;
+  }
+}
+
+.block{
+  font-weight: bold;
+  padding: 13px 0 13px 15px;
+  background-color: white;
+}
+
+.borderTop{
+  border-top: 1px solid #DEDEDE;
+}
+
+.borderBottom{
+  border-bottom: 1px solid #DEDEDE;
+}
+
+.icon{
+  height: 20px;
+  width: 20px;
+}
+
+.arrow{
+  float: right;
+  margin:0 10px;
+}
+
+.bar{
+  background-color: white;
+  border:1px solid rgb(167, 167, 167);
+  border-radius: 5px;
+  padding:5px;
+}
