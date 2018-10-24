@@ -6,12 +6,13 @@ import { get } from '@/utils/index'
 import user from '@/components/user/index'
 
 export default{
-  onLoad (options) {
-    var vm = this
-    vm.getData(options.userName)
+  onLoad () {
   },
   components: {
     user
+  },
+  mounted () {
+    this.getData()
   },
   data () {
     return {
@@ -19,13 +20,12 @@ export default{
     }
   },
   methods: {
-    async getData (username) {
+    async getData () {
       let token = wx.getStorageSync('auth').token
       const header = {
         Authorization: 'token ' + token
       }
-      let url = '/users/' + username
-      const data = await get(url, '', header)
+      const data = await get('/user', '', header)
       this.userInfo = data
     }
   }

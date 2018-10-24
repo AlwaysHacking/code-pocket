@@ -2,7 +2,7 @@
   <div class="repos">
     <div v-for="(item, index) in repos" :key="index">
       <div class="repo-item">
-        <repo-item :repoName="item.full_name" />
+        <repo-item :repo="item" />
       </div>
     </div>
   </div>
@@ -12,8 +12,9 @@ import repoItem from '@/components/repoItem/index'
 import { get } from '@/utils/index'
 
 export default {
-  onLoad () {
-    this.getRepos()
+  onLoad (options) {
+    var vm = this
+    vm.getRepos(options.type, options.userName)
   },
   components: {
     repoItem
@@ -26,15 +27,21 @@ export default {
     }
   },
   methods: {
-    async getRepos () {
-      // @TODO 替换token
-      // let token = wx.getStorageSync('auth').token
-      let token = '081d665ed24b369bcffdfffbf0d154b8c69c40c3'
+    async getRepos (type, name) {
+      let token = wx.getStorageSync('auth').token
+      let url = ''
       const header = {
         Authorization: 'token ' + token
       }
 
-      const data = await get('/users/yellowpig/repos', '', header)
+      // 判断页面是reposities还是starred
+      if (type === 'myrepo') {
+        url = '/users/' + name + '/repos'
+      } else if (type === 'starredrepo') {
+        url = '/users/' + name + '/starred'
+      }
+
+      const data = await get(url, '', header)
       this.repos = data
     }
   }

@@ -52,14 +52,16 @@ export default {
       // console.log('base64 encode:' + str)
 
       // ajax请求url,header,data,method
-      var url = '/authorizations/clients/9d7164ee0946a239ef03'
+      // @TODO 填写client_id
+      var url = '/authorizations/clients/'+'{#client_id}'
       var header = {
         Authorization: 'Basic ' + str,
         'Content-Type': 'application/json',
         Accept: 'application/vnd.github.v3+json'
       }
       var data = {
-        client_secret: '2f989ed1641f52e5ca01c3400555a0acfb0e5150',
+        // @TODO 填写client_secret
+        client_secret: '{#client_secret}',
         scopes: ['public_repo'],
         note: 'admin script'
       }

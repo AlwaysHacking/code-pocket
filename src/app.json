@@ -1,13 +1,14 @@
 {
   "pages": [
     "pages/notification/main",
-    "pages/profile/main",
+    "pages/me/main",
     "pages/trending/main",
     "pages/search/main",
     "pages/logs/main",
     "pages/login/main",
     "pages/counter/main",
-    "pages/repositories/main"
+    "pages/repositories/main",
+    "pages/profile/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -34,7 +35,7 @@
         "text": "Trending"
       },
       {
-        "pagePath": "pages/profile/main",
+        "pagePath": "pages/me/main",
         "iconPath": "static/images/ic_menu_profile.png",
         "selectedIconPath":"static/images/ic_menu_profile_on.png",
         "text": "Profile"

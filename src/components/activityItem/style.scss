@@ -1,0 +1,68 @@
+.repo{
+  background-color: white;
+  box-shadow: 0 2px 2px #888;
+  background: #fff;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center;
+  padding: 10px;
+  font-size: 13px;
+
+  .repo-avatar{
+    min-height: 45px;
+    min-width: 45px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin:0 5px;
+  }
+
+  .repo-title{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .title-top{
+      font-weight: bold;
+      padding: 5px 0;
+    }
+
+    .title-middle{
+      margin-left: 5px;
+      padding-bottom: 10px;
+
+      .description{
+        color:#888;
+      }
+    }
+
+    .title-bottom{
+      font-weight: lighter;
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+      padding: 5px 0;
+
+      p{
+        padding-right: 5px;
+      }
+
+      .lang-color{
+        display: inline-block;
+        margin: 0 5px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.icon{
+  height: 15px;
+  width: 15px;
+  min-height: 15px;
+  min-width: 15px;
+  margin:0 5px;
+}
