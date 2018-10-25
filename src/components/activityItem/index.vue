@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { get } from '@/utils/index'
+import { get, formatDateDifference } from '@/utils/index'
 import colors from '@/utils/colors'
 
 export default {
@@ -56,7 +56,8 @@ export default {
         color: colors[data.language],
         stargazers_count: data.stargazers_count,
         forks_count: data.forks_count,
-        description: data.description
+        description: data.description,
+        updated_at: formatDateDifference(data['updated_at'], 'MMM DD, YYYY')
       }
     },
     toProfile (username) {

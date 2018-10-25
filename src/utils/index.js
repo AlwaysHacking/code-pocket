@@ -1,3 +1,7 @@
+import distanceInWordsToNow from 'date-fns/distance_in_words_to_now'
+import differenceInCalendarDays from 'date-fns/difference_in_calendar_days'
+import { format } from 'date-fns'
+
 function formatNumber (n) {
   const str = n.toString()
   return str[1] ? str : `0${str}`
@@ -16,6 +20,20 @@ export function formatTime (date) {
   const t2 = [hour, minute, second].map(formatNumber).join(':')
 
   return `${t1} ${t2}`
+}
+
+export function formatDateDifference (time) {
+  // 获取与当前时间的天数差
+  let distanceToNowNum = differenceInCalendarDays(new Date(), time)
+
+  if (distanceToNowNum <= 30) {
+    let words = distanceInWordsToNow(time)
+    if (words.indexOf('day') !== -1) {
+      return words + ' ago'
+    }
+    return words
+  }
+  return format(time, 'MMM DD, YYYY')
 }
 
 export default {

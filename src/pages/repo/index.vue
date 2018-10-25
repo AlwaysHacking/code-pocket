@@ -3,8 +3,8 @@
     <div class="repoInfo">
       <div class="baseInfo">
         <div class="base_user">
-          <img class="avatarImg" lazy-load :src="repoInfo.owner.avatar_url" alt="avatar"/>
-          <div>{{repoInfo.owner.login}}</div>
+          <img class="avatarImg" lazy-load :src="repoInfo.avatar_url" alt="avatar"/>
+          <div>{{repoInfo.login}}</div>
         </div>
         <div class="base_name">{{repoInfo.name}}</div>
         <div class="base_description" v-if="repoInfo.description">{{repoInfo.description}}</div>
@@ -25,7 +25,7 @@
             <img src="../../octicons/svg/issue-opened.svg" class="iconMini"><span class="textMini">issues</span>{{repoInfo.open_issues}}
           </div>
           <div class="bar">
-            <img src="../../octicons/svg/calendar.svg" class="iconMini"><span class="textMini">updated</span>
+            <img src="../../octicons/svg/calendar.svg" class="iconMini"><span class="textMini">updated</span>{{repoInfo['updated_at']}}
           </div>
         </div>
         <div class="contributorList">
@@ -59,6 +59,7 @@
 </template>
 <script>
 import { get } from '@/utils/index'
+import { format } from 'date-fns'
 
 export default {
   onLoad (options) {
@@ -80,7 +81,23 @@ export default {
       let url = '/repos/' + reponame
 
       const data = await get(url, '', header)
-      this.repoInfo = data
+      // @TODO item.owner.avatar_url在DOM渲染时报avatar_url属性undefined的错误
+      // get请求是异步的,意味着该函数的执行不会阻塞后面代码的执行。所以会先执行下一个函数,再获得全部data数据
+      this.repoInfo = this.dealRepo(data)
+      console.log(this.repoInfo)
+    },
+    dealRepo (data) {
+      return {
+        updated_at: format(data.updated_at, 'MMM DD'),
+        avatar_url: data.owner['avatar_url'],
+        login: data.owner['login'],
+        name: data.name,
+        description: data.description,
+        stargazers_count: data.stargazers_count,
+        watchers: data.watchers,
+        forks: data.forks,
+        open_issues: data.open_issues
+      }
     }
   }
 }

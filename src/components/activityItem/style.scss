@@ -6,7 +6,7 @@
   flex-direction: row;
   flex: 1;
   align-items: center;
-  padding: 10px;
+  padding: 10px 5px;
   font-size: 13px;
 
   .repo-avatar{
@@ -39,6 +39,7 @@
 
     .title-bottom{
       font-weight: lighter;
+      font-size: 12px;
       display: flex;
       flex-direction: row;
       flex: 1;

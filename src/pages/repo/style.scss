@@ -9,7 +9,7 @@
     padding:10px 0;
 
     .baseInfo{
-      margin-left: 30px;
+      margin-left: 20px;
 
       .base_user{
         display: flex;
@@ -59,13 +59,13 @@
       .buttonBar{
         display: flex;
         align-items: center;
-        font-size: 12px;
+        font-size: 10px;
         justify-content: space-between;
         margin:10px 0;
       
         .iconMini{
-          height: 15px;
-          width: 15px;
+          height: 12px;
+          width: 12px;
         }
 
         .textMini{
@@ -119,4 +119,5 @@
   border:1px solid rgb(167, 167, 167);
   border-radius: 5px;
   padding:5px;
+  margin-right:5px; 
 }

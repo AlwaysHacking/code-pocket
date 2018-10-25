@@ -22,16 +22,29 @@
       display: flex;
       flex-direction: row;
       flex: 1;
+      justify-content: space-between;
 
-      .info-action{
-        margin: 0 5px;
+      .title-text{
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+      
+        .action{
+          margin: 0 5px;
+        }
+      }
+
+      .title-time{
+        color:rgb(169, 169, 169);
+        font-size: 12px;
+        margin-right: 5px;
       }
     }
   }
 
   .repo-item{
-    margin-left: 70px;
-    margin-right: 20px;
+    margin-left: 60px;
+    margin-right: 15px;
   }
 }
 

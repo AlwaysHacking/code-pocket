@@ -1,12 +1,19 @@
 <template>
   <div>
-    <div v-for="(item, index) in receivedEvents" :key="index" class="received-event">
+    <div v-for="(item, index) in receivedEvents" :key="index" class="received-event" v-if="item.type==='WatchEvent'||item.type==='CreateEvent'||item.type==='ForkEvent'">
       <div class="info-item">
         <img class="info-avatar" lazy-load @click="toProfile(item.actor.login)" :src="item.actor.avatar_url" alt="avatar"/>
         <div class="info-title">
-          <p class="highlight" @click="toProfile(item.actor.login)">{{item.actor.login}}</p>
-          <p class="info-action">{{item.payload.action||'created'}}</p>
-          <p class="highlight" @click="toRepo(item.repo.name)">{{item.repo.name}}</p>
+          <div class="title-text">
+            <p class="highlight" @click="toProfile(item.actor.login)">{{item.actor.login}}</p>
+            <p class="action">
+              <span v-if="item.type==='WatchEvent'">started</span>
+              <span v-if="item.type==='CreateEvent'">created</span>
+              <span v-if="item.type==='ForkEvent'">forked</span>
+            </p>
+            <p class="highlight" @click="toRepo(item.repo.name)">{{item.repo.name}}</p>
+          </div>
+          <div class="title-time">{{item['created_at']}}</div>
         </div>
       </div>
       <div class="repo-item">
@@ -18,7 +25,7 @@
 
 <script>
 import activityItem from '@/components/activityItem/index'
-import { get } from '@/utils/index'
+import { get, formatDateDifference } from '@/utils/index'
 
 export default {
   onLoad () {
@@ -54,7 +61,7 @@ export default {
       }
 
       const data = await get('/users/yellowpig/received_events', '', header)
-      this.receivedEvents = data
+      this.receivedEvents = this.dealEvents(data)
     },
     toProfile (username) {
       wx.navigateTo({
@@ -65,6 +72,23 @@ export default {
       wx.navigateTo({
         url: '/pages/repo/main?repoFullName=' + reponame
       })
+    },
+    dealEvents (data) {
+      let events = []
+      events = data.map(item => {
+        return {
+          type: item.type,
+          actor: {
+            login: item.actor.login,
+            avatar_url: item.actor['avatar_url']
+          },
+          repo: {
+            name: item.repo.name
+          },
+          created_at: formatDateDifference(item['created_at'], 'MMM DD, YYYY')
+        }
+      })
+      return events
     }
   }
 }
