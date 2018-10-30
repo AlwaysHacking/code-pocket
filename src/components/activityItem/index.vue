@@ -1,6 +1,6 @@
 <template>
   <div class="repo" @click="toRepo(repoInfo.full_name)">
-    <img class="repo-avatar" lazy-load @click="toProfile(repoInfo.login)" :src="repoInfo.avatar_url" alt="avatar"/>
+    <img class="repo-avatar" lazy-load :src="repoInfo.avatar_url" alt="avatar"/>
     <div class="repo-title">
       <div class="title-top">
         <img src="../../octicons/svg/repo.svg" class="icon">
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { get, formatDateDifference } from '@/utils/index'
+import { get, formatDateDifference, formatFigure } from '@/utils/index'
 import colors from '@/utils/colors'
 
 export default {
@@ -54,16 +54,10 @@ export default {
         full_name: data.full_name,
         language: data.language,
         color: colors[data.language],
-        stargazers_count: data.stargazers_count,
-        forks_count: data.forks_count,
+        stargazers_count: formatFigure(data.stargazers_count),
         description: data.description,
         updated_at: formatDateDifference(data['updated_at'], 'MMM DD, YYYY')
       }
-    },
-    toProfile (username) {
-      wx.navigateTo({
-        url: '/pages/profile/main?userName=' + username
-      })
     },
     toRepo (reponame) {
       wx.navigateTo({

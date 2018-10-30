@@ -36,6 +36,16 @@ export function formatDateDifference (time) {
   return format(time, 'MMM DD, YYYY')
 }
 
+export function formatFigure (num) {
+  // 换算千以上的数字，用于展示star数量
+  // 1300=1.3k
+  if (num < 1000) {
+    return num
+  } else if (num >= 1000) {
+    return Math.round(num / 100) / 10 + 'k'
+  }
+}
+
 export default {
   formatNumber,
   formatTime

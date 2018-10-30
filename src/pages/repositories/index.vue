@@ -14,16 +14,25 @@ import { get } from '@/utils/index'
 export default {
   onLoad (options) {
     var vm = this
-    vm.getRepos(options.type, options.userName)
+    vm.repos = []
+    vm.userName = options.userName
+    vm.pageType = options.type
+    vm.getRepos(vm.pageType, vm.userName)
   },
   components: {
     repoItem
   },
   mounted () {
   },
+  async onPullDownRefresh () {
+    await this.getRepos(this.pageType, this.userName)
+    wx.stopPullDownRefresh()
+  },
   data () {
     return {
-      repos: []
+      repos: [],
+      userName: '',
+      pageType: ''
     }
   },
   methods: {

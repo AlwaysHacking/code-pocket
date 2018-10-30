@@ -8,6 +8,7 @@ import user from '@/components/user/index'
 export default{
   onLoad (options) {
     var vm = this
+    vm.userInfo = {}
     vm.getData(options.userName)
   },
   components: {

@@ -58,18 +58,24 @@
   </div>
 </template>
 <script>
-import { get } from '@/utils/index'
+import { get, formatFigure } from '@/utils/index'
 import { format } from 'date-fns'
 
 export default {
   onLoad (options) {
-    this.getRepoInfo(options.repoFullName)
+    this.repoName = options.repoFullName
+    this.getRepoInfo(this.repoName)
   },
   mounted () {
   },
+  async onPullDownRefresh () {
+    await this.getRepoInfo(this.repoName)
+    wx.stopPullDownRefresh()
+  },
   data () {
     return {
-      repoInfo: {}
+      repoInfo: {},
+      repoName: ''
     }
   },
   methods: {
@@ -93,9 +99,9 @@ export default {
         login: data.owner['login'],
         name: data.name,
         description: data.description,
-        stargazers_count: data.stargazers_count,
-        watchers: data.watchers,
-        forks: data.forks,
+        stargazers_count: formatFigure(data.stargazers_count),
+        watchers: formatFigure(data.watchers),
+        forks: formatFigure(data.forks),
         open_issues: data.open_issues
       }
     }

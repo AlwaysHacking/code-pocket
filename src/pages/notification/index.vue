@@ -5,13 +5,13 @@
         <img class="info-avatar" lazy-load @click="toProfile(item.actor.login)" :src="item.actor.avatar_url" alt="avatar"/>
         <div class="info-title">
           <div class="title-text">
-            <p class="highlight" @click="toProfile(item.actor.login)">{{item.actor.login}}</p>
+            <p class="highlight limitWidth" @click="toProfile(item.actor.login)">{{item.actor.login}}</p>
             <p class="action">
               <span v-if="item.type==='WatchEvent'">started</span>
               <span v-if="item.type==='CreateEvent'">created</span>
               <span v-if="item.type==='ForkEvent'">forked</span>
             </p>
-            <p class="highlight" @click="toRepo(item.repo.name)">{{item.repo.name}}</p>
+            <p class="highlight limitWidth" @click="toRepo(item.repo.name)">{{item.repo.name}}</p>
           </div>
           <div class="title-time">{{item['created_at']}}</div>
         </div>
@@ -44,6 +44,10 @@ export default {
   components: {
     activityItem
   },
+  async onPullDownRefresh () {
+    await this.getReceivedEvents()
+    wx.stopPullDownRefresh()
+  },
   data () {
     return {
       receivedEvents: []
@@ -53,7 +57,7 @@ export default {
     async getReceivedEvents () {
       // @TODO 替换token
       let auth = {}
-      auth.token = ''
+      auth.token = '130ca1fa7539071759d8f30085d07976e0b24fa6'
       wx.setStorageSync('auth', auth)
       let token = wx.getStorageSync('auth').token
       const header = {
