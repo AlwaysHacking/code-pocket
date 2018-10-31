@@ -36,6 +36,24 @@ export function formatDateDifference (time) {
   return format(time, 'MMM DD, YYYY')
 }
 
+export function getDateLastWeek () {
+  var currentDate = new Date()
+  currentDate.setDate(currentDate.getDate() - 7)
+  var year = currentDate.getFullYear()
+  var month = currentDate.getMonth() + 1
+  var day = currentDate.getDate()
+
+  if (month < 10) {
+    month = '0' + month
+  }
+
+  if (day < 10) {
+    day = '0' + day
+  }
+
+  return year + '-' + month + '-' + day
+}
+
 export function formatFigure (num) {
   // 换算千以上的数字，用于展示star数量
   // 1300=1.3k

@@ -63,6 +63,7 @@ import { format } from 'date-fns'
 
 export default {
   onLoad (options) {
+    this.repoInfo = {}
     this.repoName = options.repoFullName
     this.getRepoInfo(this.repoName)
   },

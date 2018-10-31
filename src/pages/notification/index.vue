@@ -57,7 +57,7 @@ export default {
     async getReceivedEvents () {
       // @TODO 替换token
       let auth = {}
-      auth.token = '130ca1fa7539071759d8f30085d07976e0b24fa6'
+      auth.token = ''
       wx.setStorageSync('auth', auth)
       let token = wx.getStorageSync('auth').token
       const header = {

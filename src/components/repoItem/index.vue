@@ -31,7 +31,6 @@ export default {
   },
   created () {
     this.repoInfo = this.dealRepoInfo(this.repo)
-    console.log(this.repoInfo)
   },
   data () {
     return {

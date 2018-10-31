@@ -1,9 +1,10 @@
 {
   "pages": [
+    "pages/search/main",
     "pages/notification/main",
     "pages/me/main",
     "pages/trending/main",
-    "pages/search/main",
+    
     "pages/logs/main",
     "pages/login/main",
     "pages/counter/main",

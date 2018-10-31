@@ -1,0 +1,32 @@
+.repos{
+  width: 100%;
+  height: 100%;
+  background-color: rgba(200,200,200,0.25);
+  padding-bottom: 20px;
+
+  .search{
+    background-color: white;
+    padding: 15px;
+
+    .search-btn{
+      border-radius: 20px;
+      background-color: rgba(200,200,200,0.25);
+      display: flex;
+      align-items: flex-end;
+
+      input{
+        font-size: 13px;
+      }
+
+      .search-icon{
+        height: 20px;
+        width: 20px;
+        margin: 5px;
+      }
+    }
+  }
+
+  .repo-item{
+    margin:15px;
+  }
+}
