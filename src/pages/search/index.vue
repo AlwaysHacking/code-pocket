@@ -6,9 +6,12 @@
         <input style="text" id="search-input" placeholder="Search..." @confirm="search"/>
       </div>
     </div>
-    <div v-for="(item, index) in repos" :key="index">
-      <div class="repo-item">
-        <repo-item :repo="item" />
+    <div>
+      <div class="search-result" v-if="repos.total_count">{{repos.total_count}} repositoriy results</div>
+      <div v-for="(item, index) in repos.items" :key="index">
+        <div class="repo-item">
+          <repo-item :repo="item" />
+        </div>
       </div>
     </div>
   </div>
@@ -31,7 +34,7 @@ export default {
   },
   data () {
     return {
-      repos: [],
+      repos: []
     }
   },
   methods: {
@@ -45,7 +48,7 @@ export default {
       url = '/search/repositories?sort=starts&order=desc&q=' + text + '&per_page=20'
 
       const data = await get(url, '', header)
-      this.repos = data.items
+      this.repos = data
     },
     search (e) {
       var searchText = e.mp.detail.value

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="notification">
     <div v-for="(item, index) in receivedEvents" :key="index" class="received-event" v-if="item.type==='WatchEvent'||item.type==='CreateEvent'||item.type==='ForkEvent'">
       <div class="info-item">
         <img class="info-avatar" lazy-load @click="toProfile(item.actor.login)" :src="item.actor.avatar_url" alt="avatar"/>
@@ -20,7 +20,9 @@
         <activity-item :repoName="item.repo.name" />
       </div>
     </div>
+    <div class="footer" v-if="receivedEvents">--The END--</div>
   </div>
+
 </template>
 
 <script>

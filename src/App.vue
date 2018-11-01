@@ -22,6 +22,10 @@ export default {
 
 <style>
 @import url("./octicons/build.css");
+page {
+  background-color: #F5F5F5;
+  height: 100%;
+}
 
 .container {
   height: 100%;

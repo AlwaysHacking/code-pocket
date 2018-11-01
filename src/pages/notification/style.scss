@@ -1,60 +1,69 @@
-.received-event{
+.notification{
   font-size: 15px;
   width:100%;
-  border-top: 1px solid #DEDEDE;
-  background-color:rgba(200,200,200,0.25);
-  padding:20px 0;
 
-  .info-item{
-    display: flex;
-    align-items: center;
-    
-    .info-avatar{
-      min-height: 35px;
-      min-width: 35px;
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      margin:0 15px;
-    }
+  .received-event{    
+    border-top: 1px solid #DEDEDE;
+    padding:20px 0;
 
-    .info-title{
+    .info-item{
       display: flex;
-      flex-direction: row;
-      flex: 1;
-      justify-content: space-between;
+      align-items: center;
+      
+      .info-avatar{
+        min-height: 35px;
+        min-width: 35px;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        margin:0 15px;
+      }
 
-      .title-text{
+      .info-title{
         display: flex;
         flex-direction: row;
         flex: 1;
-      
-        .action{
-          margin: 0 5px;
+        justify-content: space-between;
+
+        .title-text{
+          display: flex;
+          flex-direction: row;
+          flex: 1;
+        
+          .action{
+            margin: 0 5px;
+          }
+
+          p{
+            white-space: nowrap; // 文本强制不换行；
+            text-overflow:ellipsis; // 文本溢出显示省略号；
+            overflow:hidden; // 溢出的部分隐藏；
+          }
+
+          .limitWidth{
+            max-width:85px;
+          }
         }
 
-        p{
-          white-space: nowrap; // 文本强制不换行；
-          text-overflow:ellipsis; // 文本溢出显示省略号；
-          overflow:hidden; // 溢出的部分隐藏；
-        }
-
-        .limitWidth{
-          max-width:85px;
+        .title-time{
+          color:rgb(169, 169, 169);
+          font-size: 12px;
+          margin-right: 10px;
         }
       }
+    }
 
-      .title-time{
-        color:rgb(169, 169, 169);
-        font-size: 12px;
-        margin-right: 10px;
-      }
+    .repo-item{
+      margin-left: 60px;
+      margin-right: 15px;
     }
   }
 
-  .repo-item{
-    margin-left: 60px;
-    margin-right: 15px;
+  .footer{
+    color:rgb(173, 173, 173);
+    margin:auto;
+    padding-bottom: 20px;
+    text-align: center;
   }
 }
 

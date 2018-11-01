@@ -5,6 +5,7 @@
 
   .baseInfo{
     padding-top: 40px;
+    background-color: white;
 
     .avatar{
       float: left;
@@ -73,15 +74,19 @@
   }  
 
   .codeToolbar{
+    margin: 10px 0;
+
     .block{
       font-weight: bold;
       padding: 15px 0;
+      background-color: white;
 
       .icon{
         height: 20px;
         width: 20px;
         margin-left: 20px;
         margin-right: 10px;
+        margin-bottom: -3px;
       }
 
       .arrow{
@@ -98,8 +103,4 @@
 
 .borderBottom{
   border-bottom: 1px solid #DEDEDE;
-}
-.blank{
-  background-color: rgba(200, 200, 200, 0.3);
-  height: 20px;
 }

@@ -19,10 +19,10 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "backgroundColor": "#fafafa",
+    "backgroundColor": "#212832",
     "borderStyle": "white",
-    "selectedColor": "#b4282d",
-    "color": "#666",
+    "selectedColor": "#fff",
+    "color": "#787C7F",
     "list": [
       {
         "pagePath": "pages/notification/main",

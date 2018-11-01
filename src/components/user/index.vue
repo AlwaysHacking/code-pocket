@@ -32,7 +32,6 @@
         </div>
       </div>
     </div>
-    <div class="blank"></div>
     <div class="codeToolbar">
       <div class="block borderTop borderBottom" @click="toRepo">
         <img src="../../octicons/svg/repo.svg" class="icon">
@@ -49,7 +48,6 @@
         </div>
       </div>
     </div>
-    <div class="blank"></div>
   </div>
 </template>
 <script>
