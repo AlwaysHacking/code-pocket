@@ -54,30 +54,44 @@
         <img src="../../octicons/svg/book.svg" class="icon">
         README.md
       </div>
+      <div class="readme">
+        <wxParse :content="readme"/>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import { get, formatFigure } from '@/utils/index'
 import { format } from 'date-fns'
+import { Base64 } from 'js-base64'
+import marked from 'marked'
+import wxParse from 'mpvue-wxparse'
 
 export default {
   onLoad (options) {
     this.repoInfo = {}
+    this.readme = {}
     this.repoName = options.repoFullName
+
     this.getRepoInfo(this.repoName)
+    this.getReadMe(this.repoName)
   },
   mounted () {
   },
   async onPullDownRefresh () {
     await this.getRepoInfo(this.repoName)
+    await this.getReadMe(this.repoName)
     wx.stopPullDownRefresh()
   },
   data () {
     return {
       repoInfo: {},
-      repoName: ''
+      repoName: '',
+      readme: ''
     }
+  },
+  components: {
+    wxParse
   },
   methods: {
     async getRepoInfo (reponame) {
@@ -91,7 +105,22 @@ export default {
       // @TODO item.owner.avatar_url在DOM渲染时报avatar_url属性undefined的错误
       // get请求是异步的,意味着该函数的执行不会阻塞后面代码的执行。所以会先执行下一个函数,再获得全部data数据
       this.repoInfo = this.dealRepo(data)
-      console.log(this.repoInfo)
+    },
+    async getReadMe (reponame) {
+      let token = wx.getStorageSync('auth').token
+      const header = {
+        Authorization: 'token ' + token
+      }
+      let url = '/repos/' + reponame + '/contents/README.md'
+
+      const data = await get(url, '', header)
+      if (data.content === false) {
+        this.readme = '此仓库无README.'
+      } else {
+        let readme = Base64.decode(data.content)
+        this.readme = marked(readme)
+        console.log(this.readme)
+      }
     },
     dealRepo (data) {
       return {
@@ -111,5 +140,6 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-@import "./style.scss"
+@import "./style.scss";
+@import url("~mpvue-wxparse/src/wxParse.css");
 </style>
