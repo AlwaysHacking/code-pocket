@@ -16,8 +16,9 @@
 </template>
 
 <script>
-import { get, formatDateDifference, formatFigure } from '@/utils/index'
+import { formatDateDifference, formatFigure } from '@/utils/index'
 import colors from '@/utils/colors'
+import api from '@/http/api'
 
 export default {
   props: {
@@ -36,15 +37,8 @@ export default {
   },
   methods: {
     async getRepoInfo () {
-      const url = '/repos/' + this.repoName
-
-      // @TODO 替换token
-      let token = wx.getStorageSync('auth').token
-      var header = {
-        Authorization: 'token ' + token
-      }
-
-      const data = await get(url, '', header)
+      const res = await api.getRepo(this.repoName)
+      const data = res.data
       this.repoInfo = this.dealRepoInfo(data)
     },
     dealRepoInfo (data) {

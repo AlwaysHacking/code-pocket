@@ -14,8 +14,8 @@
   </div>
 </template>
 <script>
-import { Base64 } from '../../utils/base64'
-import { put } from '../../utils/index'
+import { Base64 } from '@/utils/base64'
+import api from '@/http/api'
 
 export default {
   onLoad () {},
@@ -52,21 +52,19 @@ export default {
       // console.log('base64 encode:' + str)
 
       // ajax请求url,header,data,method
-      // @TODO 填写client_id
-      var url = '/authorizations/clients/' + '{#client_id}'
       var header = {
         Authorization: 'Basic ' + str,
         'Content-Type': 'application/json',
         Accept: 'application/vnd.github.v3+json'
       }
-      var data = {
+      var body = {
         // @TODO 填写client_secret
         client_secret: '{#client_secret}',
         scopes: ['public_repo'],
         note: 'admin script'
       }
 
-      const response = await put(url, data, header)
+      const response = await api.login(body, header)
       if (response) {
         wx.setStorageSync('auth', response)
         wx.setStorageSync('user', vm.username)

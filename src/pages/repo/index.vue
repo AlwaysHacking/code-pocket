@@ -61,16 +61,17 @@
   </div>
 </template>
 <script>
-import { get, formatFigure } from '@/utils/index'
+import { formatFigure } from '@/utils/index'
 import { format } from 'date-fns'
 import { Base64 } from 'js-base64'
 import marked from 'marked'
 import wxParse from 'mpvue-wxparse'
+import api from '@/http/api'
 
 export default {
   onLoad (options) {
     this.repoInfo = {}
-    this.readme = {}
+    this.readme = '<p>此仓库无README.</p>'
     this.repoName = options.repoFullName
 
     this.getRepoInfo(this.repoName)
@@ -95,27 +96,18 @@ export default {
   },
   methods: {
     async getRepoInfo (reponame) {
-      let token = wx.getStorageSync('auth').token
-      const header = {
-        Authorization: 'token ' + token
-      }
-      let url = '/repos/' + reponame
-
-      const data = await get(url, '', header)
+      const res = await api.getRepo(reponame)
+      const data = res.data
       // @TODO item.owner.avatar_url在DOM渲染时报avatar_url属性undefined的错误
       // get请求是异步的,意味着该函数的执行不会阻塞后面代码的执行。所以会先执行下一个函数,再获得全部data数据
       this.repoInfo = this.dealRepo(data)
     },
     async getReadMe (reponame) {
-      let token = wx.getStorageSync('auth').token
-      const header = {
-        Authorization: 'token ' + token
-      }
-      let url = '/repos/' + reponame + '/contents/README.md'
-
-      const data = await get(url, '', header)
-      if (data.content === false) {
-        this.readme = '此仓库无README.'
+      const res = await api.getReadme(reponame)
+      const data = res.data
+      // @TODO 仓库无README时会报404错误
+      if (data === false) {
+        this.readme = '<p>此仓库无README.</p>'
       } else {
         let readme = Base64.decode(data.content)
         this.readme = marked(readme)

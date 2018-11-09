@@ -27,7 +27,8 @@
 
 <script>
 import activityItem from '@/components/activityItem/index'
-import { get, formatDateDifference } from '@/utils/index'
+import { formatDateDifference } from '@/utils/index'
+import api from '@/http/api'
 
 export default {
   onLoad () {
@@ -61,12 +62,9 @@ export default {
       let auth = {}
       auth.token = ''
       wx.setStorageSync('auth', auth)
-      let token = wx.getStorageSync('auth').token
-      const header = {
-        Authorization: 'token ' + token
-      }
 
-      const data = await get('/users/yellowpig/received_events', '', header)
+      const res = await api.getMyActivity()
+      const data = res.data
       this.receivedEvents = this.dealEvents(data)
     },
     toProfile (username) {

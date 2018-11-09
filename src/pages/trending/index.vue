@@ -9,7 +9,8 @@
 </template>
 <script>
 import repoItem from '@/components/repoItem/index'
-import { get, getDateLastWeek } from '@/utils/index'
+import { getDateLastWeek } from '@/utils/index'
+import api from '@/http/api'
 
 export default {
   onLoad (options) {
@@ -32,17 +33,10 @@ export default {
   },
   methods: {
     async getRepos () {
-      let token = wx.getStorageSync('auth').token
-      let url = ''
       let last7date = getDateLastWeek()
-      const header = {
-        Authorization: 'token ' + token
-      }
-
       // 通过Github Search API 获得一周内创建同时start数量最多项目
-      url = '/search/repositories?sort=starts&order=desc&q=created:>' + last7date + '&per_page=20'
-
-      const data = await get(url, '', header)
+      const res = await api.getTrending(last7date)
+      const data = res.data
       this.repos = data.items
     }
   }

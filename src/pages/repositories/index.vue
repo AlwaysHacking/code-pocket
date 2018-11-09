@@ -9,7 +9,7 @@
 </template>
 <script>
 import repoItem from '@/components/repoItem/index'
-import { get } from '@/utils/index'
+import api from '@/http/api'
 
 export default {
   onLoad (options) {
@@ -37,20 +37,15 @@ export default {
   },
   methods: {
     async getRepos (type, name) {
-      let token = wx.getStorageSync('auth').token
-      let url = ''
-      const header = {
-        Authorization: 'token ' + token
-      }
-
+      var res = {}
       // 判断页面是reposities还是starred
       if (type === 'myrepo') {
-        url = '/users/' + name + '/repos'
+        res = await api.getUserRepos(name)
       } else if (type === 'starredrepo') {
-        url = '/users/' + name + '/starred'
+        res = await api.getStarred(name)
       }
 
-      const data = await get(url, '', header)
+      const data = res.data
       this.repos = data
     }
   }

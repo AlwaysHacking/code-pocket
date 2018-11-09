@@ -2,7 +2,7 @@
   <user :user="userInfo" />
 </template>
 <script>
-import { get } from '@/utils/index'
+import api from '@/http/api'
 import user from '@/components/user/index'
 
 export default{
@@ -21,12 +21,8 @@ export default{
   },
   methods: {
     async getData (username) {
-      let token = wx.getStorageSync('auth').token
-      const header = {
-        Authorization: 'token ' + token
-      }
-      let url = '/users/' + username
-      const data = await get(url, '', header)
+      const res = await api.getInfo(username)
+      const data = res.data
       this.userInfo = data
     }
   }

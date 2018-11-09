@@ -18,7 +18,7 @@
 </template>
 <script>
 import repoItem from '@/components/repoItem/index'
-import { get } from '@/utils/index'
+import api from '@/http/api'
 
 export default {
   onLoad (options) {
@@ -39,15 +39,8 @@ export default {
   },
   methods: {
     async getRepos (text) {
-      let token = wx.getStorageSync('auth').token
-      let url = ''
-      const header = {
-        Authorization: 'token ' + token
-      }
-
-      url = '/search/repositories?sort=starts&order=desc&q=' + text + '&per_page=20'
-
-      const data = await get(url, '', header)
+      const res = api.getSearchResult(text)
+      const data = res.data
       this.repos = data
     },
     search (e) {
