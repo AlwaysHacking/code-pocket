@@ -16,6 +16,12 @@ const api = {
   */
   getTrending: (time) => request('/search/repositories?sort=starts&order=desc&q=created:>' + time + '&per_page=20'),
   /**
+   * Respositories
+  */
+  getIsStar: (repofullname) => request('/user/starred/' + repofullname),
+  deleteStar: (repofullname) => request('/user/starred/' + repofullname, 'DELETE'),
+  putStar: (repofullname) => request('/user/starred/' + repofullname, 'PUT'),
+  /**
    * Public
   */
   login: (body, header) => request('/authorizations/clients/{#client_id}', 'PUT', body, header), // @TODO 登录接口待测试

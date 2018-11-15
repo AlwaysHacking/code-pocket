@@ -9,7 +9,7 @@
         <div class="base_name">{{repoInfo.name}}</div>
         <div class="base_description" v-if="repoInfo.description">{{repoInfo.description}}</div>
         <div class="base_star">
-          <button class="starBtn">Star</button>
+          <button class="starBtn" @click="starOperations()" v-bind:style="{'background-color':isStar?'rgb(219,219,219)':'rgb(0,114,225)'}">{{isStar?'Unstar':'Star'}}</button>
           <div>{{repoInfo.stargazers_count}}</div>
         </div>
       </div>
@@ -35,15 +35,19 @@
     </div>
     <div class="repoToolbar">
       <div class="block borderTop borderBottom">
-        <img src="../../octicons/svg/file-code.svg" class="icon">
-        View Code
+        <div class="blockText">
+          <img src="../../octicons/svg/file-code.svg" class="icon">
+          View Code
+        </div>
         <div class="arrow">
           <img src="../../../static/images/icon_arrow_right.png" class="icon">
         </div>
       </div>
       <div class="block borderTop borderBottom">
-        <img src="../../octicons/svg/issue-opened.svg" class="icon">
-        Issue
+        <div class="blockText">
+          <img src="../../octicons/svg/issue-opened.svg" class="icon">
+          Issue
+        </div>
         <div class="arrow">
           <img src="../../../static/images/icon_arrow_right.png" class="icon">
         </div>
@@ -51,8 +55,10 @@
     </div>
     <div class="repoReadMe">
       <div class="block borderTop borderBottom">
-        <img src="../../octicons/svg/book.svg" class="icon">
-        README.md
+        <div class="blockText">
+          <img src="../../octicons/svg/book.svg" class="icon">
+          README.md
+        </div>
       </div>
       <div class="readme">
         <wxParse :content="readme"/>
@@ -75,12 +81,14 @@ export default {
     this.repoName = options.repoFullName
 
     this.getRepoInfo(this.repoName)
+    this.getIsStar(this.repoName)
     this.getReadMe(this.repoName)
   },
   mounted () {
   },
   async onPullDownRefresh () {
     await this.getRepoInfo(this.repoName)
+    await this.getIsStar(this.repoName)
     await this.getReadMe(this.repoName)
     wx.stopPullDownRefresh()
   },
@@ -88,7 +96,8 @@ export default {
     return {
       repoInfo: {},
       repoName: '',
-      readme: ''
+      readme: '',
+      isStar: false
     }
   },
   components: {
@@ -98,20 +107,48 @@ export default {
     async getRepoInfo (reponame) {
       const res = await api.getRepo(reponame)
       const data = res.data
-      // @TODO item.owner.avatar_url在DOM渲染时报avatar_url属性undefined的错误
+      // item.owner.avatar_url在DOM渲染时报avatar_url属性undefined的错误
       // get请求是异步的,意味着该函数的执行不会阻塞后面代码的执行。所以会先执行下一个函数,再获得全部data数据
       this.repoInfo = this.dealRepo(data)
     },
     async getReadMe (reponame) {
       const res = await api.getReadme(reponame)
       const data = res.data
-      // @TODO 仓库无README时会报404错误
-      if (data === false) {
+      if (res.statusCode === 404) {
         this.readme = '<p>此仓库无README.</p>'
       } else {
         let readme = Base64.decode(data.content)
         this.readme = marked(readme)
-        console.log(this.readme)
+      }
+    },
+    async getIsStar (reponame) {
+      const res = await api.getIsStar(reponame)
+      console.log(res)
+      if (res.statusCode !== 404) {
+        this.isStar = true
+      } else {
+        this.isStar = false
+      }
+    },
+    async unstarRepo () {
+      const reponame = this.repoName
+      const res = await api.deleteStar(reponame)
+      if (res.statusCode !== 404) {
+        this.isStar = false
+      }
+    },
+    async starRepo () {
+      const reponame = this.repoName
+      const res = await api.putStar(reponame)
+      if (res.statusCode !== 404) {
+        this.isStar = true
+      }
+    },
+    starOperations () {
+      if (this.isStar) {
+        this.unstarRepo()
+      } else {
+        this.starRepo()
       }
     },
     dealRepo (data) {

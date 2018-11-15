@@ -101,6 +101,13 @@
   font-weight: bold;
   padding: 13px 0 13px 15px;
   background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blockText{
+  display: flex
 }
 
 .borderTop{
@@ -114,7 +121,7 @@
 .icon{
   height: 20px;
   width: 20px;
-  margin-bottom: -3px;
+  margin-right: 5px;
 }
 
 .arrow{
@@ -127,4 +134,6 @@
   border:1px solid rgb(167, 167, 167);
   border-radius: 5px;
   padding:5px;
+  display:flex;
+  align-items: center;
 }

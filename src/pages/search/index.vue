@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     async getRepos (text) {
-      const res = api.getSearchResult(text)
+      const res = await api.getSearchResult(text)
       const data = res.data
       this.repos = data
     },
