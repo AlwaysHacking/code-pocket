@@ -29,7 +29,15 @@
           </div>
         </div>
         <div class="contributorList">
-          <div class="listText">Contributor list</div>
+          <div class="listTitle">Contributor list</div>
+          <div v-for="(item,index) in contributorList" :key="index" class="listItem" @click="toProfile(item.login)">
+            <div class="listItemLeft">
+              <img class="avatarImgMini" lazy-load :src="item.avatar_url" alt="avatar"/>
+              <div class="loginMini">{{item.login}}</div>
+            </div>
+            <div class="listItemMiddle">{{item.contributions}} contributions</div>
+            <div class="listItemRight">#{{index+1}}</div> 
+          </div>
         </div>
       </div>
     </div>
@@ -77,15 +85,16 @@ import api from '@/http/api'
 export default {
   onLoad (options) {
     this.repoInfo = {}
+    this.contributorList = []
     this.readme = '<p>此仓库无README.</p>'
     this.repoName = options.repoFullName
 
     this.getRepoInfo(this.repoName)
     this.getIsStar(this.repoName)
     this.getReadMe(this.repoName)
+    this.getContributor(this.repoName)
   },
-  mounted () {
-  },
+  mounted () {},
   async onPullDownRefresh () {
     await this.getRepoInfo(this.repoName)
     await this.getIsStar(this.repoName)
@@ -97,7 +106,8 @@ export default {
       repoInfo: {},
       repoName: '',
       readme: '',
-      isStar: false
+      isStar: false,
+      contributorList: []
     }
   },
   components: {
@@ -123,12 +133,15 @@ export default {
     },
     async getIsStar (reponame) {
       const res = await api.getIsStar(reponame)
-      console.log(res)
       if (res.statusCode !== 404) {
         this.isStar = true
       } else {
         this.isStar = false
       }
+    },
+    async getContributor (reponame) {
+      const res = await api.getContributorList(reponame)
+      this.contributorList = res.data.slice(0, 3)
     },
     async unstarRepo () {
       const reponame = this.repoName
@@ -150,6 +163,11 @@ export default {
       } else {
         this.starRepo()
       }
+    },
+    toProfile (username) {
+      wx.navigateTo({
+        url: '/pages/profile/main?userName=' + username
+      })
     },
     dealRepo (data) {
       return {

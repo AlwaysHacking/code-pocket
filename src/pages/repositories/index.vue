@@ -24,10 +24,6 @@ export default {
   },
   mounted () {
   },
-  async onPullDownRefresh () {
-    await this.getRepos(this.pageType, this.userName)
-    wx.stopPullDownRefresh()
-  },
   data () {
     return {
       repos: [],

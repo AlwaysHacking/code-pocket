@@ -18,6 +18,7 @@ const api = {
   /**
    * Respositories
   */
+  getContributorList: (repofullname) => request('/repos/' + repofullname + '/contributors'),
   getIsStar: (repofullname) => request('/user/starred/' + repofullname),
   deleteStar: (repofullname) => request('/user/starred/' + repofullname, 'DELETE'),
   putStar: (repofullname) => request('/user/starred/' + repofullname, 'PUT'),
