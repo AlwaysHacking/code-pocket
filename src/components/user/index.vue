@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-    <div class="codeToolbar">
+    <div class="codeToolBar">
       <div class="block borderTop borderBottom" @click="toRepo">
         <img src="../../octicons/svg/repo.svg" class="icon">
         Repositories
@@ -48,9 +48,21 @@
         </div>
       </div>
     </div>
+    <div class="contributionBar">
+      <div class="block borderTop borderBottom contributionTotal">
+        {{totalInfo.total}} contribututions in {{totalInfo.year}}
+      </div>
+      <!-- 如果从网页爬标签，一般放在后台处理  -->
+      <!-- <scroll-view :style="{'height': '200px'}" :scroll-x="true">
+        <img src="../../calendarSVG/20170521-20180521.svg" style="height:150px;width:600px"/>
+      </scroll-view> -->
+     </div>
   </div>
 </template>
+
 <script>
+import api from '@/http/api'
+
 export default {
   props: {
     user: {
@@ -58,10 +70,21 @@ export default {
       defalt: {}
     }
   },
-  created () {
+  watch: {
+    // 父组件向子组件异步传值时,子组件methods方法获取不到数据,需要watch监听
+    user: function (newVal, oldVal) {
+      this.user = newVal
+      /** @TODO 两种方法获取提交日历：
+       * 1.前端：github-contributions-api获取数据，手写js渲染
+       * 2.后端：用cheerio.js从页面中截取svg标签部分储存成svg文件，页面中用img标签读入
+       * **/
+      this.getContributions(this.user.login)
+    }
   },
   data () {
     return {
+      user: {},
+      totalInfo: {},
     }
   },
   methods: {
@@ -74,6 +97,12 @@ export default {
       wx.navigateTo({
         url: '/pages/repositories/main?type=starredrepo&userName=' + this.user.login
       })
+    },
+    async getContributions (username) {
+      var res = await api.getContributionsHistory(username)
+      var data = res.data
+      console.log(data)
+      this.totalInfo = data.years[0]
     }
   }
 }

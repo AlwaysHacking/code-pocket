@@ -20,7 +20,7 @@
         <activity-item :repoName="item.repo.name" />
       </div>
     </div>
-    <div class="footer" v-if="receivedEvents">--The END--</div>
+    <div class="footer" v-if="showTheEnd">--The END--</div>
   </div>
 
 </template>
@@ -47,13 +47,18 @@ export default {
   components: {
     activityItem
   },
+  onReachBottom: function () {
+    this.getReceivedEvents()
+  },
   async onPullDownRefresh () {
     await this.getReceivedEvents()
     wx.stopPullDownRefresh()
   },
   data () {
     return {
-      receivedEvents: []
+      receivedEvents: [],
+      page: 1,
+      showTheEnd: false
     }
   },
   methods: {
@@ -63,9 +68,13 @@ export default {
       auth.token = ''
       wx.setStorageSync('auth', auth)
 
-      const res = await api.getMyActivity()
+      const res = await api.getMyActivity(this.page)
       const data = res.data
-      this.receivedEvents = this.dealEvents(data)
+      if (res.data.length === 0) {
+        this.showTheEnd = true
+      }
+      this.receivedEvents = this.receivedEvents.concat(this.dealEvents(data))
+      this.page = this.page + 1
     },
     toProfile (username) {
       wx.navigateTo({

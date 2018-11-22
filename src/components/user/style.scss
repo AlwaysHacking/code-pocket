@@ -73,27 +73,31 @@
     }
   }  
 
-  .codeToolbar{
+  .codeToolBar{
     margin: 10px 0;
+  }
 
-    .block{
-      font-weight: bold;
-      padding: 15px 0;
-      background-color: white;
+  .contributionTotal{
+    font-size: 15px;
+  }
+}
 
-      .icon{
-        height: 20px;
-        width: 20px;
-        margin-left: 20px;
-        margin-right: 10px;
-        margin-bottom: -3px;
-      }
+.block{
+  font-weight: bold;
+  padding: 15px 0;
+  background-color: white;
+  padding-left: 20px;
 
-      .arrow{
-        float: right;
-        margin:0 10px;
-      }
-    }
+  .icon{
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+    margin-bottom: -3px;
+  }
+
+  .arrow{
+    float: right;
+    margin:0 10px;
   }
 }
 

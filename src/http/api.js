@@ -1,10 +1,10 @@
-import {request} from './request'
+import {request, requestForOthers} from './request'
 
 const api = {
   /**
    * Notification
   */
-  getMyActivity: () => request('/users/yellowpig/received_events'),
+  getMyActivity: (page) => request('/users/yellowpig/received_events?page=' + page),
 
   /**
    * Search
@@ -31,7 +31,12 @@ const api = {
   getMyInfo: () => request('/user'),
   getReadme: (repofullname) => request('/repos/' + repofullname + '/contents/README.md'),
   getUserRepos: (user) => request('/users/' + user + '/repos'),
-  getStarred: (user) => request('/users/' + user + '/starred')
+  getStarred: (user) => request('/users/' + user + '/starred'),
+  /**
+   * Others
+   * 来自 https://github.com/sallar/github-contributions-api 封装的API
+  */
+  getContributionsHistory: (user) => requestForOthers('https://github-contributions-api.now.sh/v1/' + user)
 }
 
 export default api
