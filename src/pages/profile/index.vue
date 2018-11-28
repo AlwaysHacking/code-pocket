@@ -1,5 +1,5 @@
 <template>
-  <user :user="userInfo" />
+  <user :user="userInfo" :pageType="'userProfile'" />
 </template>
 <script>
 import api from '@/http/api'

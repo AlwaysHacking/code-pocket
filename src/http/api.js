@@ -23,6 +23,13 @@ const api = {
   deleteStar: (repofullname) => request('/user/starred/' + repofullname, 'DELETE'),
   putStar: (repofullname) => request('/user/starred/' + repofullname, 'PUT'),
   /**
+   * Profile
+   * follow接口需要用户使用范围登录并使用基本身份验证或OAuth进行身份验证user:follow
+  */
+  getIsFollow: (user) => request('/user/following/' + user),
+  putFollow: (user) => request('/user/following/' + user, 'PUT'),
+  deleteFollow: (user) => request('/user/following/' + user, 'DELETE'),
+  /**
    * Public
   */
   login: (body, header) => request('/authorizations/clients/{#client_id}', 'PUT', body, header), // @TODO 登录接口待测试

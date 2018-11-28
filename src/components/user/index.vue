@@ -3,6 +3,7 @@
     <div class="baseInfo borderTop borderBottom">
       <div class="avatar">
         <img :src="user.avatar_url" alt="avatar" class="avatarImg">
+        <button v-if="pageType!=='myProfile'" class="followBtn" @click="followOperations()" v-bind:style="{'background-color':isFollow?'rgb(219,219,219)':'rgb(0,114,225)'}">{{isFollow?'Unfollow':'Follow'}}</button>
       </div>
       <div class="info">
         <div class="login">{{user.login}}</div>
@@ -50,7 +51,7 @@
     </div>
     <div class="contributionBar">
       <div class="block borderTop borderBottom contributionTotal">
-        {{totalInfo.total}} contribututions in {{totalInfo.year}}
+        {{totalInfo.total||0}} contribututions in {{totalInfo.year||2018}}
       </div>
       <!-- 如果从网页爬标签，一般放在后台处理  -->
       <!-- <scroll-view :style="{'height': '200px'}" :scroll-x="true">
@@ -68,6 +69,10 @@ export default {
     user: {
       types: Object,
       defalt: {}
+    },
+    pageType: {
+      types: String,
+      defalt: ''
     }
   },
   watch: {
@@ -79,12 +84,14 @@ export default {
        * 2.后端：用cheerio.js从页面中截取svg标签部分储存成svg文件，页面中用img标签读入
        * **/
       this.getContributions(this.user.login)
+      this.getIsFollow(this.user.login)
     }
   },
   data () {
     return {
       user: {},
       totalInfo: {},
+      isFollow: false
     }
   },
   methods: {
@@ -101,9 +108,38 @@ export default {
     async getContributions (username) {
       var res = await api.getContributionsHistory(username)
       var data = res.data
-      console.log(data)
+      // console.log(data)
       this.totalInfo = data.years[0]
-    }
+    },
+    async getIsFollow (username) {
+      const res = await api.getIsFollow(username)
+      if (res.statusCode !== 404) {
+        this.isFollow = true
+      } else {
+        this.isFollow = false
+      }
+    },
+    async unfollowRepo () {
+      const username = this.user.login
+      const res = await api.deleteFollow(username)
+      if (res.statusCode !== 404) {
+        this.isFollow = false
+      }
+    },
+    async followRepo () {
+      const username = this.user.login
+      const res = await api.putFollow(username)
+      if (res.statusCode !== 404) {
+        this.isFollow = true
+      }
+    },
+    followOperations () {
+      if (this.isFollow) {
+        this.unfollowRepo()
+      } else {
+        this.followRepo()
+      }
+    },
   }
 }
 </script>

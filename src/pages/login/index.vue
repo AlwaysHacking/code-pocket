@@ -60,7 +60,7 @@ export default {
       var body = {
         // @TODO 填写client_secret
         client_secret: '{#client_secret}',
-        scopes: ['public_repo'],
+        scopes: ['public_repo','user:follow'],
         note: 'admin script'
       }
 
