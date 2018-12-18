@@ -1,0 +1,40 @@
+.repo{
+  background-color: white;
+  box-shadow: 0 4px 2px rgba(120,120,120,0.1);
+  border-radius: 5px;
+  background: #fff;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center;
+  padding: 10px;
+  font-size: 13px;
+
+  .repo-avatar{
+    min-height: 45px;
+    min-width: 45px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin:0 5px;
+  }
+
+  .repo-title{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .title-top{
+      font-weight: bold;
+      padding: 5px 0;
+    }
+  }
+}
+
+.icon{
+  height: 15px;
+  width: 15px;
+  min-height: 15px;
+  min-width: 15px;
+  margin:0 5px -2px 5px;
+}

@@ -9,8 +9,8 @@ const api = {
   /**
    * Search
   */
-  getRepoSearchResult: (text) => request('/search/repositories?sort=starts&order=desc&q=' + text + '&per_page=20'),
-  getUserSearchResult: (text) => request('/search/users?sort=starts&order=desc&q=' + text + '&per_page=20'),
+  getRepoSearchResult: (text, page) => request('/search/repositories?sort=starts&order=desc&q=' + text + '&per_page=15&page=' + page),
+  getUserSearchResult: (text, page) => request('/search/users?sort=starts&order=desc&q=' + text + '&per_page=15&page=' + page),
   /**
    * Trending
   */
